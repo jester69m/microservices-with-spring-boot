@@ -9,7 +9,7 @@ services:
       MYSQL_PASSWORD: 'root'
       MYSQL_ROOT_PASSWORD: 'root'
     ports:
-      - '3306:3306'
+      - '8000:3306'
     networks:
       - blogapi-network
     healthcheck:
@@ -19,17 +19,17 @@ services:
       retries: 10
     volumes:
       - ./data:/docker-entrypoint-initdb.d
-  application:
-    container_name: blogapi-application
-    build:
-      context: ./
-      dockerfile: Dockerfile
-    ports:
-      - "8080:8080"
-    networks:
-      - blogapi-network
-    depends_on:
-      - "db"
+#  application:
+#    container_name: blogapi-application
+#    build:
+#      context: ./
+#      dockerfile: Dockerfile
+#    ports:
+#      - "8080:8080"
+#    networks:
+#      - blogapi-network
+#    depends_on:
+#      - "db"
 networks:
   blogapi-network:
     name: blogapi-network
