@@ -7,7 +7,14 @@
     <groupId>com.sopromadze</groupId>
     <artifactId>blogapi</artifactId>
     <version>0.0.1-SNAPSHOT</version>
-    <packaging>jar</packaging>
+    <modules>
+        <module>album</module>
+        <module>post</module>
+        <module>comment</module>
+		<module>user</module>
+        <module>authorization</module>
+    </modules>
+    <packaging>pom</packaging>
 
     <name>BlogAPI</name>
     <description>Blog API project with Spring Boot</description>

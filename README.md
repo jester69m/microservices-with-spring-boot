@@ -237,14 +237,14 @@ Test them using postman or any other rest client.
 }
 ```
 
-##### <a id="albumcreate">Create Album -> /api/albums</a>
+##### <a id="albumcreate">Create com.reworked.Album -> /api/albums</a>
 ```json
 {
 	"title": "quidem molestiae enim"
 }
 ```
 
-##### <a id="albumupdate">Update Album -> /api/albums/{id}</a>
+##### <a id="albumupdate">Update com.reworked.Album -> /api/albums/{id}</a>
 ```json
 {
 	"title": "quidem molestiae enim UPDATED"
