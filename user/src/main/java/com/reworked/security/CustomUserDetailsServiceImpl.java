@@ -1,9 +1,10 @@
-package com.reworked.security.service;
+package com.reworked.security;
 
+import com.reworked.security.CustomUserDetailsService;
+import com.reworked.user.UserRepository;
+import com.reworked.model.user.User;
 import com.reworked.security.UserPrincipal;
-import com.sopromadze.blogapi.model.user.User;
-import com.sopromadze.blogapi.repository.UserRepository;
-import org.springframework.beans.factory.annotation.Autowired;
+import lombok.AllArgsConstructor;
 import org.springframework.security.core.userdetails.UserDetails;
 import org.springframework.security.core.userdetails.UserDetailsService;
 import org.springframework.security.core.userdetails.UsernameNotFoundException;
@@ -12,9 +13,10 @@ import org.springframework.stereotype.Service;
 import javax.transaction.Transactional;
 
 @Service
+@AllArgsConstructor
 public class CustomUserDetailsServiceImpl implements UserDetailsService, CustomUserDetailsService {
-	@Autowired
-	private UserRepository userRepository;
+
+	private final UserRepository userRepository;
 
 	@Override
 	@Transactional

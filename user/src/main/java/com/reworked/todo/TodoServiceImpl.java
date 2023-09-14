@@ -1,6 +1,6 @@
 package com.reworked.todo;
 
-import com.reworked.UserRepository;
+import com.reworked.user.UserRepository;
 import com.reworked.exception.BadRequestException;
 import com.reworked.exception.ResourceNotFoundException;
 import com.reworked.exception.UnauthorizedException;

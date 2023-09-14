@@ -1,6 +1,6 @@
 package com.reworked.utils;
 
-import com.sopromadze.blogapi.exception.BlogapiException;
+import com.reworked.exception.BlogapiException;
 import org.springframework.http.HttpStatus;
 
 public class AppUtils {

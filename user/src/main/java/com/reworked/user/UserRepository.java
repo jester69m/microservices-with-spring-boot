@@ -1,4 +1,4 @@
-package com.reworked;
+package com.reworked.user;
 
 import com.reworked.exception.ResourceNotFoundException;
 import com.reworked.model.user.User;

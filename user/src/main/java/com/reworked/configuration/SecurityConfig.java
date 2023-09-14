@@ -1,10 +1,9 @@
 package com.reworked.configuration;
 
-import com.sopromadze.blogapi.repository.UserRepository;
-import com.sopromadze.blogapi.security.JwtAuthenticationEntryPoint;
-import com.sopromadze.blogapi.security.JwtAuthenticationFilter;
-import com.sopromadze.blogapi.service.impl.CustomUserDetailsServiceImpl;
-import org.springframework.beans.factory.annotation.Autowired;
+import com.reworked.security.JwtAuthenticationEntryPoint;
+import com.reworked.security.JwtAuthenticationFilter;
+import com.reworked.security.CustomUserDetailsServiceImpl;
+import lombok.AllArgsConstructor;
 import org.springframework.context.annotation.Bean;
 import org.springframework.context.annotation.Configuration;
 import org.springframework.http.HttpMethod;
@@ -26,18 +25,12 @@ import org.springframework.security.web.authentication.UsernamePasswordAuthentic
 		securedEnabled = true,
 		jsr250Enabled = true,
 		prePostEnabled = true)
-public class SecutiryConfig extends WebSecurityConfigurerAdapter {
+@AllArgsConstructor
+public class SecurityConfig extends WebSecurityConfigurerAdapter {
+
 	private final CustomUserDetailsServiceImpl customUserDetailsService;
 	private final JwtAuthenticationEntryPoint unauthorizedHandler;
 	private final JwtAuthenticationFilter jwtAuthenticationFilter;
-
-	@Autowired
-	public SecutiryConfig(UserRepository userRepository, CustomUserDetailsServiceImpl customUserDetailsService,
-			JwtAuthenticationEntryPoint unauthorizedHandler, JwtAuthenticationFilter jwtAuthenticationFilter) {
-		this.customUserDetailsService = customUserDetailsService;
-		this.unauthorizedHandler = unauthorizedHandler;
-		this.jwtAuthenticationFilter = jwtAuthenticationFilter;
-	}
 
 	@Override
 	protected void configure(HttpSecurity http) throws Exception {

@@ -1,11 +1,10 @@
-package com.reworked;
+package com.reworked.user;
 
 import com.reworked.model.user.User;
 import com.reworked.payload.*;
 import com.reworked.security.CurrentUser;
 import com.reworked.security.UserPrincipal;
-import com.reworked.utils.AppConstants;
-import org.springframework.beans.factory.annotation.Autowired;
+import lombok.AllArgsConstructor;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
 import org.springframework.security.access.prepost.PreAuthorize;
@@ -15,15 +14,13 @@ import javax.validation.Valid;
 
 @RestController
 @RequestMapping("/api/users")
+@AllArgsConstructor
 public class UserController {
-	@Autowired
-	private UserService userService;
 
-	@Autowired
-	private PostService postService;
+	private final UserService userService;
 
-	@Autowired
-	private AlbumService albumService;
+//	private final PostService postService;
+//	private final AlbumService albumService;
 
 	@GetMapping("/me")
 	@PreAuthorize("hasRole('USER')")
@@ -52,25 +49,25 @@ public class UserController {
 
 		return new ResponseEntity< >(userProfile, HttpStatus.OK);
 	}
+//
+//	@GetMapping("/{username}/posts")
+//	public ResponseEntity<PagedResponse<Post>> getPostsCreatedBy(@PathVariable(value = "username") String username,
+//			@RequestParam(value = "page", required = false, defaultValue = AppConstants.DEFAULT_PAGE_NUMBER) Integer page,
+//			@RequestParam(value = "size", required = false, defaultValue = AppConstants.DEFAULT_PAGE_SIZE) Integer size) {
+//		PagedResponse<Post> response = postService.getPostsByCreatedBy(username, page, size);
+//
+//		return new ResponseEntity<  >(response, HttpStatus.OK);
+//	}
 
-	@GetMapping("/{username}/posts")
-	public ResponseEntity<PagedResponse<Post>> getPostsCreatedBy(@PathVariable(value = "username") String username,
-			@RequestParam(value = "page", required = false, defaultValue = AppConstants.DEFAULT_PAGE_NUMBER) Integer page,
-			@RequestParam(value = "size", required = false, defaultValue = AppConstants.DEFAULT_PAGE_SIZE) Integer size) {
-		PagedResponse<Post> response = postService.getPostsByCreatedBy(username, page, size);
-
-		return new ResponseEntity<  >(response, HttpStatus.OK);
-	}
-
-	@GetMapping("/{username}/albums")
-	public ResponseEntity<PagedResponse<Album>> getUserAlbums(@PathVariable(name = "username") String username,
-			@RequestParam(name = "page", required = false, defaultValue = AppConstants.DEFAULT_PAGE_NUMBER) Integer page,
-			@RequestParam(name = "size", required = false, defaultValue = AppConstants.DEFAULT_PAGE_SIZE) Integer size) {
-
-		PagedResponse<Album> response = albumService.getUserAlbums(username, page, size);
-
-		return new ResponseEntity<  >(response, HttpStatus.OK);
-	}
+//	@GetMapping("/{username}/albums")
+//	public ResponseEntity<PagedResponse<Album>> getUserAlbums(@PathVariable(name = "username") String username,
+//			@RequestParam(name = "page", required = false, defaultValue = AppConstants.DEFAULT_PAGE_NUMBER) Integer page,
+//			@RequestParam(name = "size", required = false, defaultValue = AppConstants.DEFAULT_PAGE_SIZE) Integer size) {
+//
+//		PagedResponse<Album> response = albumService.getUserAlbums(username, page, size);
+//
+//		return new ResponseEntity<  >(response, HttpStatus.OK);
+//	}
 
 	@PostMapping
 	@PreAuthorize("hasRole('ADMIN')")

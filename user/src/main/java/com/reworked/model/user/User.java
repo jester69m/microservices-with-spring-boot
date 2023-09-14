@@ -78,17 +78,17 @@ public class User extends DateAudit {
 	@OneToMany(mappedBy = "user", cascade = CascadeType.ALL, orphanRemoval = true)
 	private List<Todo> todos;
 
-	@JsonIgnore
-	@OneToMany(mappedBy = "user", cascade = CascadeType.ALL, orphanRemoval = true)
-	private List<Album> albums;
+//	@JsonIgnore
+//	@OneToMany(mappedBy = "user", cascade = CascadeType.ALL, orphanRemoval = true)
+//	private List<Album> albums;
 
-	@JsonIgnore
-	@OneToMany(mappedBy = "user", cascade = CascadeType.ALL, orphanRemoval = true)
-	private List<Post> posts;
+//	@JsonIgnore
+//	@OneToMany(mappedBy = "user", cascade = CascadeType.ALL, orphanRemoval = true)
+//	private List<Post> posts;
 
-	@JsonIgnore
-	@OneToMany(mappedBy = "user", cascade = CascadeType.ALL, orphanRemoval = true)
-	private List<Comment> comments;
+//	@JsonIgnore
+//	@OneToMany(mappedBy = "user", cascade = CascadeType.ALL, orphanRemoval = true)
+//	private List<Comment> comments;
 
 	@OneToOne(cascade = CascadeType.ALL, orphanRemoval = true)
 	@JoinColumn(name = "company_id")
@@ -118,34 +118,34 @@ public class User extends DateAudit {
 		}
 	}
 
-	public List<Album> getAlbums() {
-
-		return albums == null ? null : new ArrayList<>(albums);
-	}
-
-	public void setAlbums(List<Album> albums) {
-
-		if (albums == null) {
-			this.albums = null;
-		} else {
-			this.albums = Collections.unmodifiableList(albums);
-		}
-	}
-
-
-	public List<Post> getPosts() {
-
-		return posts == null ? null : new ArrayList<>(posts);
-	}
-
-	public void setPosts(List<Post> posts) {
-
-		if (posts == null) {
-			this.posts = null;
-		} else {
-			this.posts = Collections.unmodifiableList(posts);
-		}
-	}
+//	public List<Album> getAlbums() {
+//
+//		return albums == null ? null : new ArrayList<>(albums);
+//	}
+//
+//	public void setAlbums(List<Album> albums) {
+//
+//		if (albums == null) {
+//			this.albums = null;
+//		} else {
+//			this.albums = Collections.unmodifiableList(albums);
+//		}
+//	}
+//
+//
+//	public List<Post> getPosts() {
+//
+//		return posts == null ? null : new ArrayList<>(posts);
+//	}
+//
+//	public void setPosts(List<Post> posts) {
+//
+//		if (posts == null) {
+//			this.posts = null;
+//		} else {
+//			this.posts = Collections.unmodifiableList(posts);
+//		}
+//	}
 
 	public List<Role> getRoles() {
 
@@ -161,16 +161,16 @@ public class User extends DateAudit {
 		}
 	}
 
-	public List<Comment> getComments() {
-		return comments == null ? null : new ArrayList<>(comments);
-	}
-
-	public void setComments(List<Comment> comments) {
-
-		if (comments == null) {
-			this.comments = null;
-		} else {
-			this.comments = Collections.unmodifiableList(comments);
-		}
-	}
+//	public List<Comment> getComments() {
+//		return comments == null ? null : new ArrayList<>(comments);
+//	}
+//
+//	public void setComments(List<Comment> comments) {
+//
+//		if (comments == null) {
+//			this.comments = null;
+//		} else {
+//			this.comments = Collections.unmodifiableList(comments);
+//		}
+//	}
 }

@@ -1,4 +1,4 @@
-package com.reworked;
+package com.reworked.user;
 
 import com.reworked.exception.*;
 import com.reworked.model.role.Role;
