@@ -1,10 +1,9 @@
 package com.reworked.photo;
 
-import com.sopromadze.blogapi.payload.ApiResponse;
-import com.sopromadze.blogapi.payload.PagedResponse;
-import com.sopromadze.blogapi.payload.PhotoRequest;
-import com.sopromadze.blogapi.payload.PhotoResponse;
-import com.sopromadze.blogapi.security.UserPrincipal;
+import com.reworked.payload.ApiResponse;
+import com.reworked.payload.PagedResponse;
+import com.reworked.payload.PhotoRequest;
+import com.reworked.payload.PhotoResponse;
 
 public interface PhotoService {
 

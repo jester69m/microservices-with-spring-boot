@@ -9,8 +9,8 @@ import com.reworked.model.user.Company;
 import com.reworked.model.user.Geo;
 import com.reworked.model.user.User;
 import com.reworked.payload.*;
-import com.reworked.sec.UserPrincipal;
-import org.springframework.beans.factory.annotation.Autowired;
+import com.reworked.security.UserPrincipal;
+import lombok.AllArgsConstructor;
 import org.springframework.http.HttpStatus;
 import org.springframework.security.core.authority.SimpleGrantedAuthority;
 import org.springframework.security.crypto.password.PasswordEncoder;
@@ -20,18 +20,15 @@ import java.util.ArrayList;
 import java.util.List;
 
 @Service
+@AllArgsConstructor
 public class UserServiceImpl implements UserService {
-	@Autowired
-	private UserRepository userRepository;
 
-	@Autowired
-	private PostRepository postRepository;
+	private final UserRepository userRepository;
 
-	@Autowired
-	private RoleRepository roleRepository;
+	private final RoleRepository roleRepository;
 
-	@Autowired
-	private PasswordEncoder passwordEncoder;
+	private final PasswordEncoder passwordEncoder;
+
 
 	@Override
 	public UserSummary getCurrentUser(UserPrincipal currentUser) {
@@ -55,11 +52,9 @@ public class UserServiceImpl implements UserService {
 	public UserProfile getUserProfile(String username) {
 		User user = userRepository.getUserByName(username);
 
-		Long postCount = postRepository.countByCreatedBy(user.getId());
-
 		return new UserProfile(user.getId(), user.getUsername(), user.getFirstName(), user.getLastName(),
 				user.getCreatedAt(), user.getEmail(), user.getAddress(), user.getPhone(), user.getWebsite(),
-				user.getCompany(), postCount);
+				user.getCompany());
 	}
 
 	@Override
@@ -160,12 +155,11 @@ public class UserServiceImpl implements UserService {
 			user.setPhone(infoRequest.getPhone());
 			User updatedUser = userRepository.save(user);
 
-			Long postCount = postRepository.countByCreatedBy(updatedUser.getId());
 
 			return new UserProfile(updatedUser.getId(), updatedUser.getUsername(),
 					updatedUser.getFirstName(), updatedUser.getLastName(), updatedUser.getCreatedAt(),
 					updatedUser.getEmail(), updatedUser.getAddress(), updatedUser.getPhone(), updatedUser.getWebsite(),
-					updatedUser.getCompany(), postCount);
+					updatedUser.getCompany());
 		}
 
 		ApiResponse apiResponse = new ApiResponse(Boolean.FALSE, "You don't have permission to update users profile", HttpStatus.FORBIDDEN);

@@ -1,7 +1,7 @@
 package com.reworked.photo;
 
 import com.fasterxml.jackson.annotation.JsonIgnore;
-import com.reworked.Album;
+import com.reworked.album.Album;
 import com.reworked.audit.UserDateAudit;
 import lombok.Data;
 import lombok.EqualsAndHashCode;

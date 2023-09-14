@@ -7,7 +7,7 @@ import com.reworked.exception.UnauthorizedException;
 import com.reworked.model.user.User;
 import com.reworked.payload.ApiResponse;
 import com.reworked.payload.PagedResponse;
-import com.reworked.sec.UserPrincipal;
+import com.reworked.security.UserPrincipal;
 import com.reworked.utils.AppConstants;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.data.domain.Page;

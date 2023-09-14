@@ -2,7 +2,7 @@ package com.reworked;
 
 import com.reworked.exception.ResourceNotFoundException;
 import com.reworked.model.user.User;
-import com.reworked.sec.UserPrincipal;
+import com.reworked.security.UserPrincipal;
 import org.springframework.data.jpa.repository.JpaRepository;
 import org.springframework.stereotype.Repository;
 

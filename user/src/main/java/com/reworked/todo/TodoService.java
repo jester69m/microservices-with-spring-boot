@@ -2,7 +2,7 @@ package com.reworked.todo;
 
 import com.reworked.payload.ApiResponse;
 import com.reworked.payload.PagedResponse;
-import com.reworked.sec.UserPrincipal;
+import com.reworked.security.UserPrincipal;
 
 public interface TodoService {
 

@@ -12,7 +12,6 @@
         <module>post</module>
         <module>comment</module>
 		<module>user</module>
-        <module>authorization</module>
     </modules>
     <packaging>pom</packaging>
 

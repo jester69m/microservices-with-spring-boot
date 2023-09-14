@@ -2,7 +2,7 @@ package com.reworked;
 
 import com.reworked.model.user.User;
 import com.reworked.payload.*;
-import com.reworked.sec.UserPrincipal;
+import com.reworked.security.UserPrincipal;
 
 public interface UserService {
 

@@ -2,8 +2,8 @@ package com.reworked.category;
 
 import com.fasterxml.jackson.annotation.JsonIdentityInfo;
 import com.fasterxml.jackson.annotation.ObjectIdGenerators;
-import com.sopromadze.blogapi.model.Post;
-import com.sopromadze.blogapi.model.audit.UserDateAudit;
+import com.reworked.audit.UserDateAudit;
+import com.reworked.post.Post;
 import lombok.Data;
 import lombok.EqualsAndHashCode;
 import lombok.NoArgsConstructor;

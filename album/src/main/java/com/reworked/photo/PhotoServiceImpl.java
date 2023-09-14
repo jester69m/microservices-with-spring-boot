@@ -1,17 +1,15 @@
 package com.reworked.photo;
 
-import com.sopromadze.blogapi.exception.ResourceNotFoundException;
-import com.sopromadze.blogapi.exception.UnauthorizedException;
-import com.sopromadze.blogapi.model.Album;
-import com.sopromadze.blogapi.model.role.RoleName;
-import com.sopromadze.blogapi.payload.ApiResponse;
-import com.sopromadze.blogapi.payload.PagedResponse;
-import com.sopromadze.blogapi.payload.PhotoRequest;
-import com.sopromadze.blogapi.payload.PhotoResponse;
-import com.sopromadze.blogapi.repository.AlbumRepository;
-import com.sopromadze.blogapi.security.UserPrincipal;
-import com.sopromadze.blogapi.utils.AppConstants;
-import com.sopromadze.blogapi.utils.AppUtils;
+import com.reworked.album.Album;
+import com.reworked.album.AlbumRepository;
+import com.reworked.exception.ResourceNotFoundException;
+import com.reworked.exception.UnauthorizedException;
+import com.reworked.payload.ApiResponse;
+import com.reworked.payload.PagedResponse;
+import com.reworked.payload.PhotoRequest;
+import com.reworked.payload.PhotoResponse;
+import com.reworked.utils.AppConstants;
+import com.reworked.utils.AppUtils;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.data.domain.Page;
 import org.springframework.data.domain.PageRequest;
@@ -24,7 +22,6 @@ import java.util.ArrayList;
 import java.util.Collections;
 import java.util.List;
 
-import static com.sopromadze.blogapi.utils.AppConstants.*;
 
 @Service
 public class PhotoServiceImpl implements PhotoService {

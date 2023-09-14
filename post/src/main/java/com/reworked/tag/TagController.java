@@ -1,10 +1,9 @@
 package com.reworked.tag;
 
+import com.reworked.payload.ApiResponse;
 import com.reworked.payload.PagedResponse;
 import com.reworked.utils.AppConstants;
-import com.sopromadze.blogapi.payload.ApiResponse;
-import com.sopromadze.blogapi.security.CurrentUser;
-import com.sopromadze.blogapi.security.UserPrincipal;
+import com.reworked.utils.CurrentUser;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;

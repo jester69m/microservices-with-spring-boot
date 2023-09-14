@@ -4,6 +4,7 @@ import com.reworked.exception.ResourceNotFoundException;
 import com.reworked.exception.UnauthorizedException;
 import com.reworked.payload.ApiResponse;
 import com.reworked.payload.PagedResponse;
+import com.reworked.role.RoleName;
 import com.reworked.utils.AppUtils;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.data.domain.Page;

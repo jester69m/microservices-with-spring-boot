@@ -2,8 +2,8 @@ package com.reworked;
 
 import com.reworked.model.user.User;
 import com.reworked.payload.*;
-import com.reworked.sec.CurrentUser;
-import com.reworked.sec.UserPrincipal;
+import com.reworked.security.CurrentUser;
+import com.reworked.security.UserPrincipal;
 import com.reworked.utils.AppConstants;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpStatus;

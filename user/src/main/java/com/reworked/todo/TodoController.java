@@ -2,8 +2,8 @@ package com.reworked.todo;
 
 import com.reworked.payload.ApiResponse;
 import com.reworked.payload.PagedResponse;
-import com.reworked.sec.CurrentUser;
-import com.reworked.sec.UserPrincipal;
+import com.reworked.security.CurrentUser;
+import com.reworked.security.UserPrincipal;
 import com.reworked.utils.AppConstants;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpStatus;

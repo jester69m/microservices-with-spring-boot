@@ -5,6 +5,7 @@ import com.fasterxml.jackson.annotation.JsonIgnore;
 import com.fasterxml.jackson.annotation.ObjectIdGenerators;
 import com.reworked.audit.UserDateAudit;
 import com.reworked.category.Category;
+import com.reworked.comment.Comment;
 import com.reworked.tag.Tag;
 import lombok.Data;
 import lombok.EqualsAndHashCode;

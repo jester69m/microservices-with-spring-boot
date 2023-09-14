@@ -1,5 +1,6 @@
 package com.reworked.post;
 
+import com.reworked.tag.Tag;
 import com.sopromadze.blogapi.model.Tag;
 import org.springframework.data.domain.Page;
 import org.springframework.data.domain.Pageable;
