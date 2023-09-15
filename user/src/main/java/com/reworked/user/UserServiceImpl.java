@@ -1,5 +1,6 @@
 package com.reworked.user;
 
+import com.reworked.dto.UserDto;
 import com.reworked.exception.*;
 import com.reworked.model.role.Role;
 import com.reworked.model.role.RoleName;
@@ -55,6 +56,12 @@ public class UserServiceImpl implements UserService {
 		return new UserProfile(user.getId(), user.getUsername(), user.getFirstName(), user.getLastName(),
 				user.getCreatedAt(), user.getEmail(), user.getAddress(), user.getPhone(), user.getWebsite(),
 				user.getCompany());
+	}
+
+	public UserDto getUserById(Long id) {
+		User user = userRepository.findById(id)
+				.orElseThrow(() -> new ResourceNotFoundException("User", "id", id));
+		return new UserDto(user.getId(), user.getUsername());
 	}
 
 	@Override

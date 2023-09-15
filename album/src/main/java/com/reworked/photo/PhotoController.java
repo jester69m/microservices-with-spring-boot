@@ -27,14 +27,14 @@ public class PhotoController {
 		return photoService.getAllPhotos(page, size);
 	}
 
-	@PostMapping
-	@PreAuthorize("hasRole('USER')")
-	public ResponseEntity<PhotoResponse> addPhoto(@Valid @RequestBody PhotoRequest photoRequest,
-			@CurrentUser UserPrincipal currentUser) {
-		PhotoResponse photoResponse = photoService.addPhoto(photoRequest, currentUser);
-
-		return new ResponseEntity< >(photoResponse, HttpStatus.OK);
-	}
+//	@PostMapping
+//	@PreAuthorize("hasRole('USER')")
+//	public ResponseEntity<PhotoResponse> addPhoto(@Valid @RequestBody PhotoRequest photoRequest,
+//			@CurrentUser UserPrincipal currentUser) {
+//		PhotoResponse photoResponse = photoService.addPhoto(photoRequest, currentUser);
+//
+//		return new ResponseEntity< >(photoResponse, HttpStatus.OK);
+//	}
 
 	@GetMapping("/{id}")
 	public ResponseEntity<PhotoResponse> getPhoto(@PathVariable(name = "id") Long id) {
@@ -43,21 +43,21 @@ public class PhotoController {
 		return new ResponseEntity< >(photoResponse, HttpStatus.OK);
 	}
 
-	@PutMapping("/{id}")
-	@PreAuthorize("hasRole('USER') or hasRole('ADMIN')")
-	public ResponseEntity<PhotoResponse> updatePhoto(@PathVariable(name = "id") Long id,
-			@Valid @RequestBody PhotoRequest photoRequest, @CurrentUser UserPrincipal currentUser) {
+//	@PutMapping("/{id}")
+//	@PreAuthorize("hasRole('USER') or hasRole('ADMIN')")
+//	public ResponseEntity<PhotoResponse> updatePhoto(@PathVariable(name = "id") Long id,
+//			@Valid @RequestBody PhotoRequest photoRequest, @CurrentUser UserPrincipal currentUser) {
+//
+//		PhotoResponse photoResponse = photoService.updatePhoto(id, photoRequest, currentUser);
+//
+//		return new ResponseEntity< >(photoResponse, HttpStatus.OK);
+//	}
 
-		PhotoResponse photoResponse = photoService.updatePhoto(id, photoRequest, currentUser);
-
-		return new ResponseEntity< >(photoResponse, HttpStatus.OK);
-	}
-
-	@DeleteMapping("/{id}")
-	@PreAuthorize("hasRole('USER') or hasRole('ADMIN')")
-	public ResponseEntity<ApiResponse> deletePhoto(@PathVariable(name = "id") Long id, @CurrentUser UserPrincipal currentUser) {
-		ApiResponse apiResponse = photoService.deletePhoto(id, currentUser);
-
-		return new ResponseEntity< >(apiResponse, HttpStatus.OK);
-	}
+//	@DeleteMapping("/{id}")
+//	@PreAuthorize("hasRole('USER') or hasRole('ADMIN')")
+//	public ResponseEntity<ApiResponse> deletePhoto(@PathVariable(name = "id") Long id, @CurrentUser UserPrincipal currentUser) {
+//		ApiResponse apiResponse = photoService.deletePhoto(id, currentUser);
+//
+//		return new ResponseEntity< >(apiResponse, HttpStatus.OK);
+//	}
 }

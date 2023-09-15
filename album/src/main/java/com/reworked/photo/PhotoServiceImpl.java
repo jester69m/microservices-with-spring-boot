@@ -62,56 +62,56 @@ public class PhotoServiceImpl implements PhotoService {
 				photo.getThumbnailUrl(), photo.getAlbum().getId());
 	}
 
-	@Override
-	public PhotoResponse updatePhoto(Long id, PhotoRequest photoRequest, UserPrincipal currentUser) {
-		Album album = albumRepository.findById(photoRequest.getAlbumId())
-				.orElseThrow(() -> new ResourceNotFoundException(AppConstants.ALBUM, AppConstants.ID, photoRequest.getAlbumId()));
-		Photo photo = photoRepository.findById(id).orElseThrow(() -> new ResourceNotFoundException(AppConstants.PHOTO, AppConstants.ID, id));
-		if (photo.getAlbum().getUser().getId().equals(currentUser.getId())
-				|| currentUser.getAuthorities().contains(new SimpleGrantedAuthority(RoleName.ROLE_ADMIN.toString()))) {
-			photo.setTitle(photoRequest.getTitle());
-			photo.setThumbnailUrl(photoRequest.getThumbnailUrl());
-			photo.setAlbum(album);
-			Photo updatedPhoto = photoRepository.save(photo);
-			return new PhotoResponse(updatedPhoto.getId(), updatedPhoto.getTitle(),
-					updatedPhoto.getUrl(), updatedPhoto.getThumbnailUrl(), updatedPhoto.getAlbum().getId());
-		}
-
-		ApiResponse apiResponse = new ApiResponse(Boolean.FALSE, "You don't have permission to update this photo");
-
-		throw new UnauthorizedException(apiResponse);
-	}
-
-	@Override
-	public PhotoResponse addPhoto(PhotoRequest photoRequest, UserPrincipal currentUser) {
-		Album album = albumRepository.findById(photoRequest.getAlbumId())
-				.orElseThrow(() -> new ResourceNotFoundException(AppConstants.ALBUM, AppConstants.ID, photoRequest.getAlbumId()));
-		if (album.getUser().getId().equals(currentUser.getId())) {
-			Photo photo = new Photo(photoRequest.getTitle(), photoRequest.getUrl(), photoRequest.getThumbnailUrl(),
-					album);
-			Photo newPhoto = photoRepository.save(photo);
-			return new PhotoResponse(newPhoto.getId(), newPhoto.getTitle(), newPhoto.getUrl(),
-					newPhoto.getThumbnailUrl(), newPhoto.getAlbum().getId());
-		}
-
-		ApiResponse apiResponse = new ApiResponse(Boolean.FALSE, "You don't have permission to add photo in this album");
-
-		throw new UnauthorizedException(apiResponse);
-	}
-
-	@Override
-	public ApiResponse deletePhoto(Long id, UserPrincipal currentUser) {
-		Photo photo = photoRepository.findById(id).orElseThrow(() -> new ResourceNotFoundException(AppConstants.PHOTO, AppConstants.ID, id));
-		if (photo.getAlbum().getUser().getId().equals(currentUser.getId())
-				|| currentUser.getAuthorities().contains(new SimpleGrantedAuthority(RoleName.ROLE_ADMIN.toString()))) {
-			photoRepository.deleteById(id);
-			return new ApiResponse(Boolean.TRUE, "Photo deleted successfully");
-		}
-
-		ApiResponse apiResponse = new ApiResponse(Boolean.FALSE, "You don't have permission to delete this photo");
-
-		throw new UnauthorizedException(apiResponse);
-	}
+//	@Override
+//	public PhotoResponse updatePhoto(Long id, PhotoRequest photoRequest, UserPrincipal currentUser) {
+//		Album album = albumRepository.findById(photoRequest.getAlbumId())
+//				.orElseThrow(() -> new ResourceNotFoundException(AppConstants.ALBUM, AppConstants.ID, photoRequest.getAlbumId()));
+//		Photo photo = photoRepository.findById(id).orElseThrow(() -> new ResourceNotFoundException(AppConstants.PHOTO, AppConstants.ID, id));
+//		if (photo.getAlbum().getUser().getId().equals(currentUser.getId())
+//				|| currentUser.getAuthorities().contains(new SimpleGrantedAuthority(RoleName.ROLE_ADMIN.toString()))) {
+//			photo.setTitle(photoRequest.getTitle());
+//			photo.setThumbnailUrl(photoRequest.getThumbnailUrl());
+//			photo.setAlbum(album);
+//			Photo updatedPhoto = photoRepository.save(photo);
+//			return new PhotoResponse(updatedPhoto.getId(), updatedPhoto.getTitle(),
+//					updatedPhoto.getUrl(), updatedPhoto.getThumbnailUrl(), updatedPhoto.getAlbum().getId());
+//		}
+//
+//		ApiResponse apiResponse = new ApiResponse(Boolean.FALSE, "You don't have permission to update this photo");
+//
+//		throw new UnauthorizedException(apiResponse);
+//	}
+//
+//	@Override
+//	public PhotoResponse addPhoto(PhotoRequest photoRequest, UserPrincipal currentUser) {
+//		Album album = albumRepository.findById(photoRequest.getAlbumId())
+//				.orElseThrow(() -> new ResourceNotFoundException(AppConstants.ALBUM, AppConstants.ID, photoRequest.getAlbumId()));
+//		if (album.getUser().getId().equals(currentUser.getId())) {
+//			Photo photo = new Photo(photoRequest.getTitle(), photoRequest.getUrl(), photoRequest.getThumbnailUrl(),
+//					album);
+//			Photo newPhoto = photoRepository.save(photo);
+//			return new PhotoResponse(newPhoto.getId(), newPhoto.getTitle(), newPhoto.getUrl(),
+//					newPhoto.getThumbnailUrl(), newPhoto.getAlbum().getId());
+//		}
+//
+//		ApiResponse apiResponse = new ApiResponse(Boolean.FALSE, "You don't have permission to add photo in this album");
+//
+//		throw new UnauthorizedException(apiResponse);
+//	}
+//
+//	@Override
+//	public ApiResponse deletePhoto(Long id, UserPrincipal currentUser) {
+//		Photo photo = photoRepository.findById(id).orElseThrow(() -> new ResourceNotFoundException(AppConstants.PHOTO, AppConstants.ID, id));
+//		if (photo.getAlbum().getUser().getId().equals(currentUser.getId())
+//				|| currentUser.getAuthorities().contains(new SimpleGrantedAuthority(RoleName.ROLE_ADMIN.toString()))) {
+//			photoRepository.deleteById(id);
+//			return new ApiResponse(Boolean.TRUE, "Photo deleted successfully");
+//		}
+//
+//		ApiResponse apiResponse = new ApiResponse(Boolean.FALSE, "You don't have permission to delete this photo");
+//
+//		throw new UnauthorizedException(apiResponse);
+//	}
 
 	@Override
 	public PagedResponse<PhotoResponse> getAllPhotosByAlbum(Long albumId, int page, int size) {

@@ -5,9 +5,12 @@ import com.reworked.exception.ResourceNotFoundException;
 import com.reworked.payload.AlbumResponse;
 import com.reworked.payload.ApiResponse;
 import com.reworked.payload.PagedResponse;
+import com.reworked.payload.UserProfile;
 import com.reworked.payload.request.AlbumRequest;
+import com.reworked.security.AuthService;
 import com.reworked.utils.AppConstants;
 import com.reworked.utils.AppUtils;
+import com.reworked.utils.UserDto;
 import org.modelmapper.ModelMapper;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.data.domain.Page;
@@ -36,10 +39,10 @@ public class AlbumServiceImpl implements AlbumService {
 	private AlbumRepository albumRepository;
 
 	@Autowired
-	private UserRepository userRepository;
+	private ModelMapper modelMapper;
 
 	@Autowired
-	private ModelMapper modelMapper;
+	private AuthService authService;
 
 	@Override
 	public PagedResponse<AlbumResponse> getAllAlbums(int page, int size) {
@@ -61,14 +64,15 @@ public class AlbumServiceImpl implements AlbumService {
 	}
 
 	@Override
-	public ResponseEntity<Album> addAlbum(AlbumRequest albumRequest, UserPrincipal currentUser) {
-		User user = userRepository.getUser(currentUser);
+	public ResponseEntity<Album> addAlbum(AlbumRequest albumRequest, Long userId) {
+		UserDto userDto = authService.getCurrentUser(userId);
 
 		Album album = new Album();
 
 		modelMapper.map(albumRequest, album);
 
-		album.setUser(user);
+		if(userDto != null)
+			album.setUserId(userId);
 		Album newAlbum = albumRepository.save(album);
 		return new ResponseEntity<>(newAlbum, HttpStatus.CREATED);
 	}
@@ -79,48 +83,48 @@ public class AlbumServiceImpl implements AlbumService {
 		return new ResponseEntity<>(album, HttpStatus.OK);
 	}
 
-	@Override
-	public ResponseEntity<AlbumResponse> updateAlbum(Long id, AlbumRequest newAlbum, UserPrincipal currentUser) {
-		Album album = albumRepository.findById(id).orElseThrow(() -> new ResourceNotFoundException(ALBUM_STR, AppConstants.ID, id));
-		User user = userRepository.getUser(currentUser);
-		if (album.getUser().getId().equals(user.getId()) || currentUser.getAuthorities()
-				.contains(new SimpleGrantedAuthority(RoleName.ROLE_ADMIN.toString()))) {
-			album.setTitle(newAlbum.getTitle());
-			Album updatedAlbum = albumRepository.save(album);
-
-			AlbumResponse albumResponse = new AlbumResponse();
-
-			modelMapper.map(updatedAlbum, albumResponse);
-
-			return new ResponseEntity<>(albumResponse, HttpStatus.OK);
-		}
-
-		throw new BlogapiException(HttpStatus.UNAUTHORIZED, YOU_DON_T_HAVE_PERMISSION_TO_MAKE_THIS_OPERATION);
-	}
-
-	@Override
-	public ResponseEntity<ApiResponse> deleteAlbum(Long id, UserPrincipal currentUser) {
-		Album album = albumRepository.findById(id).orElseThrow(() -> new ResourceNotFoundException(ALBUM_STR, AppConstants.ID, id));
-		User user = userRepository.getUser(currentUser);
-		if (album.getUser().getId().equals(user.getId()) || currentUser.getAuthorities()
-				.contains(new SimpleGrantedAuthority(RoleName.ROLE_ADMIN.toString()))) {
-			albumRepository.deleteById(id);
-			return new ResponseEntity<>(new ApiResponse(Boolean.TRUE, "You successfully deleted album"), HttpStatus.OK);
-		}
-
-		throw new BlogapiException(HttpStatus.UNAUTHORIZED, YOU_DON_T_HAVE_PERMISSION_TO_MAKE_THIS_OPERATION);
-	}
-
-	@Override
-	public PagedResponse<Album> getUserAlbums(String username, int page, int size) {
-		User user = userRepository.getUserByName(username);
-
-		Pageable pageable = PageRequest.of(page, size, Sort.Direction.DESC, CREATED_AT);
-
-		Page<Album> albums = albumRepository.findByCreatedBy(user.getId(), pageable);
-
-		List<Album> content = albums.getNumberOfElements() > 0 ? albums.getContent() : Collections.emptyList();
-
-		return new PagedResponse<>(content, albums.getNumber(), albums.getSize(), albums.getTotalElements(), albums.getTotalPages(), albums.isLast());
-	}
+//	@Override
+//	public ResponseEntity<AlbumResponse> updateAlbum(Long id, AlbumRequest newAlbum, Long userId) {
+//		Album album = albumRepository.findById(id).orElseThrow(() -> new ResourceNotFoundException(ALBUM_STR, AppConstants.ID, id));
+//		User user = userRepository.getUser(currentUser);
+//		if (album.getUser().getId().equals(user.getId()) || currentUser.getAuthorities()
+//				.contains(new SimpleGrantedAuthority(RoleName.ROLE_ADMIN.toString()))) {
+//			album.setTitle(newAlbum.getTitle());
+//			Album updatedAlbum = albumRepository.save(album);
+//
+//			AlbumResponse albumResponse = new AlbumResponse();
+//
+//			modelMapper.map(updatedAlbum, albumResponse);
+//
+//			return new ResponseEntity<>(albumResponse, HttpStatus.OK);
+//		}
+//
+//		throw new BlogapiException(HttpStatus.UNAUTHORIZED, YOU_DON_T_HAVE_PERMISSION_TO_MAKE_THIS_OPERATION);
+//	}
+//
+//	@Override
+//	public ResponseEntity<ApiResponse> deleteAlbum(Long id, Long userId) {
+//		Album album = albumRepository.findById(id).orElseThrow(() -> new ResourceNotFoundException(ALBUM_STR, AppConstants.ID, id));
+//		User user = userRepository.getUser(currentUser);
+//		if (album.getUser().getId().equals(user.getId()) || currentUser.getAuthorities()
+//				.contains(new SimpleGrantedAuthority(RoleName.ROLE_ADMIN.toString()))) {
+//			albumRepository.deleteById(id);
+//			return new ResponseEntity<>(new ApiResponse(Boolean.TRUE, "You successfully deleted album"), HttpStatus.OK);
+//		}
+//
+//		throw new BlogapiException(HttpStatus.UNAUTHORIZED, YOU_DON_T_HAVE_PERMISSION_TO_MAKE_THIS_OPERATION);
+//	}
+//
+//	@Override
+//	public PagedResponse<Album> getUserAlbums(String username, int page, int size) {
+//		User user = userRepository.getUserByName(username);
+//
+//		Pageable pageable = PageRequest.of(page, size, Sort.Direction.DESC, CREATED_AT);
+//
+//		Page<Album> albums = albumRepository.findByCreatedBy(user.getId(), pageable);
+//
+//		List<Album> content = albums.getNumberOfElements() > 0 ? albums.getContent() : Collections.emptyList();
+//
+//		return new PagedResponse<>(content, albums.getNumber(), albums.getSize(), albums.getTotalElements(), albums.getTotalPages(), albums.isLast());
+//	}
 }

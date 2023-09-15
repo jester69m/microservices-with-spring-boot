@@ -1,5 +1,6 @@
 package com.reworked.user;
 
+import com.reworked.dto.UserDto;
 import com.reworked.model.user.User;
 import com.reworked.payload.*;
 import com.reworked.security.CurrentUser;
@@ -21,6 +22,13 @@ public class UserController {
 
 //	private final PostService postService;
 //	private final AlbumService albumService;
+
+	@GetMapping("/{id}")
+	public ResponseEntity<UserDto> getUserById(@PathVariable(value = "id") Long id) {
+		UserDto user = userService.getUserById(id);
+
+		return new ResponseEntity< >(user, HttpStatus.OK);
+	}
 
 	@GetMapping("/me")
 	@PreAuthorize("hasRole('USER')")

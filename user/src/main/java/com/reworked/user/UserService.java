@@ -1,10 +1,13 @@
 package com.reworked.user;
 
+import com.reworked.dto.UserDto;
 import com.reworked.model.user.User;
 import com.reworked.payload.*;
 import com.reworked.security.UserPrincipal;
 
 public interface UserService {
+
+	UserDto getUserById(Long id);
 
 	UserSummary getCurrentUser(UserPrincipal currentUser);
 

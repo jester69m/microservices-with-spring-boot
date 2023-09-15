@@ -4,6 +4,7 @@ import com.fasterxml.jackson.annotation.JsonIgnore;
 import com.fasterxml.jackson.annotation.JsonProperty;
 import com.fasterxml.jackson.annotation.JsonPropertyOrder;
 import lombok.Data;
+import lombok.Setter;
 import org.springframework.http.HttpStatus;
 
 import java.io.Serializable;
@@ -40,5 +41,13 @@ public class ApiResponse implements Serializable {
 		this.success = success;
 		this.message = message;
 		this.status = httpStatus;
+	}
+
+	public void setSuccess(Boolean success) {
+		this.success = success;
+	}
+
+	public void setMessage(String message) {
+		this.message = message;
 	}
 }

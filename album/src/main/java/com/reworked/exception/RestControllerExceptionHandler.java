@@ -1,7 +1,7 @@
 package com.reworked.exception;
 
-import com.sopromadze.blogapi.payload.ApiResponse;
-import com.sopromadze.blogapi.payload.ExceptionResponse;
+import com.reworked.payload.ApiResponse;
+import com.reworked.payload.ExceptionResponse;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
 import org.springframework.http.converter.HttpMessageNotReadableException;

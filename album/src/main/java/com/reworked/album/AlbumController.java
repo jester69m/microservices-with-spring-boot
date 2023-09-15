@@ -43,8 +43,8 @@ public class AlbumController {
 
 	@PostMapping
 	@PreAuthorize("hasRole('USER')")
-	public ResponseEntity<Album> addAlbum(@Valid @RequestBody AlbumRequest albumRequest, @CurrentUser UserPrincipal currentUser) {
-		return albumService.addAlbum(albumRequest, currentUser);
+	public ResponseEntity<Album> addAlbum(@Valid @RequestBody AlbumRequest albumRequest, @CurrentUser Long userId) {
+		return albumService.addAlbum(albumRequest, userId);
 	}
 
 	@GetMapping("/{id}")
@@ -52,18 +52,18 @@ public class AlbumController {
 		return albumService.getAlbum(id);
 	}
 
-	@PutMapping("/{id}")
-	@PreAuthorize("hasRole('USER') or hasRole('ADMIN')")
-	public ResponseEntity<AlbumResponse> updateAlbum(@PathVariable(name = "id") Long id, @Valid @RequestBody AlbumRequest newAlbum,
-			@CurrentUser UserPrincipal currentUser) {
-		return albumService.updateAlbum(id, newAlbum, currentUser);
-	}
-
-	@DeleteMapping("/{id}")
-	@PreAuthorize("hasRole('USER') or hasRole('ADMIN')")
-	public ResponseEntity<ApiResponse> deleteAlbum(@PathVariable(name = "id") Long id, @CurrentUser UserPrincipal currentUser) {
-		return albumService.deleteAlbum(id, currentUser);
-	}
+//	@PutMapping("/{id}")
+//	@PreAuthorize("hasRole('USER') or hasRole('ADMIN')")
+//	public ResponseEntity<AlbumResponse> updateAlbum(@PathVariable(name = "id") Long id, @Valid @RequestBody AlbumRequest newAlbum,
+//			@CurrentUser Long userId) {
+//		return albumService.updateAlbum(id, newAlbum, userId);
+//	}
+//
+//	@DeleteMapping("/{id}")
+//	@PreAuthorize("hasRole('USER') or hasRole('ADMIN')")
+//	public ResponseEntity<ApiResponse> deleteAlbum(@PathVariable(name = "id") Long id, @CurrentUser Long userId) {
+//		return albumService.deleteAlbum(id, userId);
+//	}
 
 	@GetMapping("/{id}/photos")
 	public ResponseEntity<PagedResponse<PhotoResponse>> getAllPhotosByAlbum(@PathVariable(name = "id") Long id,

@@ -3,8 +3,6 @@ package com.reworked.payload;
 import com.fasterxml.jackson.annotation.JsonInclude;
 import com.fasterxml.jackson.annotation.JsonInclude.Include;
 import com.reworked.photo.Photo;
-import com.sopromadze.blogapi.model.Photo;
-import com.sopromadze.blogapi.model.user.User;
 import lombok.Data;
 import lombok.EqualsAndHashCode;
 
@@ -20,7 +18,7 @@ public class AlbumResponse extends UserDateAuditPayload {
 
 	private String title;
 
-	private User user;
+	private Long userId;
 
 	private List<Photo> photo;
 

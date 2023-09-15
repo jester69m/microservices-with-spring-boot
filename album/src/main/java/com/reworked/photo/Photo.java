@@ -3,9 +3,7 @@ package com.reworked.photo;
 import com.fasterxml.jackson.annotation.JsonIgnore;
 import com.reworked.album.Album;
 import com.reworked.audit.UserDateAudit;
-import lombok.Data;
-import lombok.EqualsAndHashCode;
-import lombok.NoArgsConstructor;
+import lombok.*;
 
 import javax.persistence.*;
 import javax.validation.constraints.NotBlank;
@@ -13,6 +11,8 @@ import javax.validation.constraints.NotBlank;
 @EqualsAndHashCode(callSuper = true)
 @Entity
 @Data
+@Setter
+@Getter
 @NoArgsConstructor
 @Table(name = "photos", uniqueConstraints = { @UniqueConstraint(columnNames = { "title" }) })
 public class Photo extends UserDateAudit {
@@ -43,6 +43,10 @@ public class Photo extends UserDateAudit {
 		this.url = url;
 		this.thumbnailUrl = thumbnailUrl;
 		this.album = album;
+	}
+
+	public Long getId() {
+		return id;
 	}
 
 	@JsonIgnore

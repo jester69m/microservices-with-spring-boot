@@ -28,16 +28,18 @@ public class Album extends UserDateAudit {
 	@Column(name = "title")
 	private String title;
 
-	@ManyToOne(fetch = FetchType.LAZY)
-	@JoinColumn(name = "user_id")
-	private User user;
+	private Long userId;
 
 	@OneToMany(mappedBy = "album", cascade = CascadeType.ALL, orphanRemoval = true)
 	private List<Photo> photo;
 
+	public void setUserId(Long userId) {
+		this.userId = userId;
+	}
+
 	@JsonIgnore
-	public User getUser() {
-		return user;
+	public Long getUserId() {
+		return userId;
 	}
 
 	public List<Photo> getPhoto() {
