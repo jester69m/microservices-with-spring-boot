@@ -5,8 +5,11 @@ import com.reworked.model.user.User;
 import com.reworked.payload.*;
 import com.reworked.security.UserPrincipal;
 
+import java.util.List;
+
 public interface UserService {
 
+	List<User> getAllUsers();
 	UserDto getUserById(Long id);
 
 	UserSummary getCurrentUser(UserPrincipal currentUser);

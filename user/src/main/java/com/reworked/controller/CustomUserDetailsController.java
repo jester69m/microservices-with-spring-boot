@@ -27,7 +27,7 @@ public class CustomUserDetailsController {
 
             UserDetails userDetails = customUserDetailsService.loadUserById(userId);
 
-            UserDto dto = new UserDto(userId, userDetails.getUsername());
+            UserDto dto = new UserDto(userId, userDetails.getUsername(), userDetails.getAuthorities().toString());
 
             return ResponseEntity.ok(dto);
 

@@ -1,11 +1,9 @@
 package com.reworked.category;
 
-import com.sopromadze.blogapi.exception.UnauthorizedException;
-import com.sopromadze.blogapi.payload.ApiResponse;
-import com.sopromadze.blogapi.payload.PagedResponse;
-import com.sopromadze.blogapi.security.CurrentUser;
-import com.sopromadze.blogapi.security.UserPrincipal;
-import com.sopromadze.blogapi.utils.AppConstants;
+import com.reworked.payload.ApiResponse;
+import com.reworked.payload.PagedResponse;
+import com.reworked.utils.AppConstants;
+import com.reworked.utils.CurrentUser;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.ResponseEntity;
 import org.springframework.security.access.prepost.PreAuthorize;
@@ -29,7 +27,7 @@ public class CategoryController {
 	@PostMapping
 	@PreAuthorize("hasRole('USER')")
 	public ResponseEntity<Category> addCategory(@Valid @RequestBody Category category,
-                                                @CurrentUser UserPrincipal currentUser) {
+                                                @CurrentUser Long currentUser) {
 
 		return categoryService.addCategory(category, currentUser);
 	}
@@ -39,18 +37,18 @@ public class CategoryController {
 		return categoryService.getCategory(id);
 	}
 
-	@PutMapping("/{id}")
-	@PreAuthorize("hasRole('USER') or hasRole('ADMIN')")
-	public ResponseEntity<Category> updateCategory(@PathVariable(name = "id") Long id,
-                                                   @Valid @RequestBody Category category, @CurrentUser UserPrincipal currentUser) throws UnauthorizedException {
-		return categoryService.updateCategory(id, category, currentUser);
-	}
-
-	@DeleteMapping("/{id}")
-	@PreAuthorize("hasRole('USER') or hasRole('ADMIN')")
-	public ResponseEntity<ApiResponse> deleteCategory(@PathVariable(name = "id") Long id,
-			@CurrentUser UserPrincipal currentUser) throws UnauthorizedException {
-		return categoryService.deleteCategory(id, currentUser);
-	}
+//	@PutMapping("/{id}")
+//	@PreAuthorize("hasRole('USER') or hasRole('ADMIN')")
+//	public ResponseEntity<Category> updateCategory(@PathVariable(name = "id") Long id,
+//                                                   @Valid @RequestBody Category category, @CurrentUser UserPrincipal currentUser) throws UnauthorizedException {
+//		return categoryService.updateCategory(id, category, currentUser);
+//	}
+//
+//	@DeleteMapping("/{id}")
+//	@PreAuthorize("hasRole('USER') or hasRole('ADMIN')")
+//	public ResponseEntity<ApiResponse> deleteCategory(@PathVariable(name = "id") Long id,
+//													  @CurrentUser Long currentUser) throws UnauthorizedException {
+//		return categoryService.deleteCategory(id, currentUser);
+//	}
 
 }

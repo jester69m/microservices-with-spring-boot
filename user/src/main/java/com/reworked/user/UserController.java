@@ -12,6 +12,7 @@ import org.springframework.security.access.prepost.PreAuthorize;
 import org.springframework.web.bind.annotation.*;
 
 import javax.validation.Valid;
+import java.util.List;
 
 @RestController
 @RequestMapping("/api/users")
@@ -22,6 +23,13 @@ public class UserController {
 
 //	private final PostService postService;
 //	private final AlbumService albumService;
+
+	@GetMapping
+	public ResponseEntity<List<User>> getAllUsers() {
+		List<User> users = userService.getAllUsers();
+
+		return new ResponseEntity< >(users, HttpStatus.OK);
+	}
 
 	@GetMapping("/{id}")
 	public ResponseEntity<UserDto> getUserById(@PathVariable(value = "id") Long id) {

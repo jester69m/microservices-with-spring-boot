@@ -31,6 +31,7 @@ public class UserServiceImpl implements UserService {
 	private final PasswordEncoder passwordEncoder;
 
 
+
 	@Override
 	public UserSummary getCurrentUser(UserPrincipal currentUser) {
 		return new UserSummary(currentUser.getId(), currentUser.getUsername(), currentUser.getFirstName(),
@@ -58,10 +59,15 @@ public class UserServiceImpl implements UserService {
 				user.getCompany());
 	}
 
+	@Override
+	public List<User> getAllUsers() {
+		return userRepository.findAll();
+	}
+
 	public UserDto getUserById(Long id) {
 		User user = userRepository.findById(id)
 				.orElseThrow(() -> new ResourceNotFoundException("User", "id", id));
-		return new UserDto(user.getId(), user.getUsername());
+		return new UserDto(user.getId(), user.getUsername(), user.getRoles().toString());
 	}
 
 	@Override

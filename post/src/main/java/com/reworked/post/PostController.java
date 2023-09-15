@@ -50,14 +50,14 @@ public class PostController {
 		return new ResponseEntity< >(response, HttpStatus.OK);
 	}
 
-	@PostMapping
-	@PreAuthorize("hasRole('USER')")
-	public ResponseEntity<PostResponse> addPost(@Valid @RequestBody PostRequest postRequest,
-												@CurrentUser UserPrincipal currentUser) {
-		PostResponse postResponse = postService.addPost(postRequest, currentUser);
-
-		return new ResponseEntity< >(postResponse, HttpStatus.CREATED);
-	}
+//	@PostMapping
+//	@PreAuthorize("hasRole('USER')")
+//	public ResponseEntity<PostResponse> addPost(@Valid @RequestBody PostRequest postRequest,
+//												@CurrentUser Long currentUser) {
+//		PostResponse postResponse = postService.addPost(postRequest, currentUser);
+//
+//		return new ResponseEntity< >(postResponse, HttpStatus.CREATED);
+//	}
 
 	@GetMapping("/{id}")
 	public ResponseEntity<Post> getPost(@PathVariable(name = "id") Long id) {
@@ -66,20 +66,20 @@ public class PostController {
 		return new ResponseEntity< >(post, HttpStatus.OK);
 	}
 
-	@PutMapping("/{id}")
-	@PreAuthorize("hasRole('USER') or hasRole('ADMIN')")
-	public ResponseEntity<Post> updatePost(@PathVariable(name = "id") Long id,
-                                           @Valid @RequestBody PostRequest newPostRequest, @CurrentUser UserPrincipal currentUser) {
-		Post post = postService.updatePost(id, newPostRequest, currentUser);
-
-		return new ResponseEntity< >(post, HttpStatus.OK);
-	}
-
-	@DeleteMapping("/{id}")
-	@PreAuthorize("hasRole('USER') or hasRole('ADMIN')")
-	public ResponseEntity<ApiResponse> deletePost(@PathVariable(name = "id") Long id, @CurrentUser UserPrincipal currentUser) {
-		ApiResponse apiResponse = postService.deletePost(id, currentUser);
-
-		return new ResponseEntity< >(apiResponse, HttpStatus.OK);
-	}
+//	@PutMapping("/{id}")
+//	@PreAuthorize("hasRole('USER') or hasRole('ADMIN')")
+//	public ResponseEntity<Post> updatePost(@PathVariable(name = "id") Long id,
+//                                           @Valid @RequestBody PostRequest newPostRequest, @CurrentUser Long currentUser) {
+//		Post post = postService.updatePost(id, newPostRequest, currentUser);
+//
+//		return new ResponseEntity< >(post, HttpStatus.OK);
+//	}
+//
+//	@DeleteMapping("/{id}")
+//	@PreAuthorize("hasRole('USER') or hasRole('ADMIN')")
+//	public ResponseEntity<ApiResponse> deletePost(@PathVariable(name = "id") Long id, @CurrentUser Long currentUser) {
+//		ApiResponse apiResponse = postService.deletePost(id, currentUser);
+//
+//		return new ResponseEntity< >(apiResponse, HttpStatus.OK);
+//	}
 }

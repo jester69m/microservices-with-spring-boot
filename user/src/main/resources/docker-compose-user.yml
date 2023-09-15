@@ -11,7 +11,7 @@ services:
     ports:
       - '8000:3306'
     networks:
-      - blogapi-network
+      - user-service-network
     healthcheck:
       test: "/usr/bin/mysql --user=root --password=root --execute \"SHOW DATABASES;\""
       interval: 2s
@@ -31,6 +31,5 @@ services:
 #    depends_on:
 #      - "db"
 networks:
-  blogapi-network:
-    name: blogapi-network
-    driver: bridge
+    user-service-network:
+      driver: bridge

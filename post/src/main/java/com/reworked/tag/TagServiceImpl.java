@@ -4,7 +4,6 @@ import com.reworked.exception.ResourceNotFoundException;
 import com.reworked.exception.UnauthorizedException;
 import com.reworked.payload.ApiResponse;
 import com.reworked.payload.PagedResponse;
-import com.reworked.role.RoleName;
 import com.reworked.utils.AppUtils;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.data.domain.Page;
@@ -42,36 +41,36 @@ public class TagServiceImpl implements TagService {
 	}
 
 	@Override
-	public Tag addTag(Tag tag, UserPrincipal currentUser) {
+	public Tag addTag(Tag tag) {
 		return tagRepository.save(tag);
 	}
 
-	@Override
-	public Tag updateTag(Long id, Tag newTag, UserPrincipal currentUser) {
-		Tag tag = tagRepository.findById(id).orElseThrow(() -> new ResourceNotFoundException("Tag", "id", id));
-		if (tag.getCreatedBy().equals(currentUser.getId()) || currentUser.getAuthorities()
-				.contains(new SimpleGrantedAuthority(RoleName.ROLE_ADMIN.toString()))) {
-			tag.setName(newTag.getName());
-			return tagRepository.save(tag);
-		}
-		ApiResponse apiResponse = new ApiResponse(Boolean.FALSE, "You don't have permission to edit this tag");
+//	@Override
+//	public Tag updateTag(Long id, Tag newTag, Long currentUser) {
+//		Tag tag = tagRepository.findById(id).orElseThrow(() -> new ResourceNotFoundException("Tag", "id", id));
+//		if (tag.getCreatedBy().equals(currentUser.getId()) || currentUser.getAuthorities()
+//				.contains(new SimpleGrantedAuthority(RoleName.ROLE_ADMIN.toString()))) {
+//			tag.setName(newTag.getName());
+//			return tagRepository.save(tag);
+//		}
+//		ApiResponse apiResponse = new ApiResponse(Boolean.FALSE, "You don't have permission to edit this tag");
+//
+//		throw new UnauthorizedException(apiResponse);
+//	}
 
-		throw new UnauthorizedException(apiResponse);
-	}
-
-	@Override
-	public ApiResponse deleteTag(Long id, UserPrincipal currentUser) {
-		Tag tag = tagRepository.findById(id).orElseThrow(() -> new ResourceNotFoundException("Tag", "id", id));
-		if (tag.getCreatedBy().equals(currentUser.getId()) || currentUser.getAuthorities()
-				.contains(new SimpleGrantedAuthority(RoleName.ROLE_ADMIN.toString()))) {
-			tagRepository.deleteById(id);
-			return new ApiResponse(Boolean.TRUE, "You successfully deleted tag");
-		}
-
-		ApiResponse apiResponse = new ApiResponse(Boolean.FALSE, "You don't have permission to delete this tag");
-
-		throw new UnauthorizedException(apiResponse);
-	}
+//	@Override
+//	public ApiResponse deleteTag(Long id, Long currentUser) {
+//		Tag tag = tagRepository.findById(id).orElseThrow(() -> new ResourceNotFoundException("Tag", "id", id));
+//		if (tag.getCreatedBy().equals(currentUser.getId()) || currentUser.getAuthorities()
+//				.contains(new SimpleGrantedAuthority(RoleName.ROLE_ADMIN.toString()))) {
+//			tagRepository.deleteById(id);
+//			return new ApiResponse(Boolean.TRUE, "You successfully deleted tag");
+//		}
+//
+//		ApiResponse apiResponse = new ApiResponse(Boolean.FALSE, "You don't have permission to delete this tag");
+//
+//		throw new UnauthorizedException(apiResponse);
+//	}
 }
 
 

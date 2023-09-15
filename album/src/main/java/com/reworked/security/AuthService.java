@@ -28,4 +28,17 @@ public class AuthService {
             return null;
         }
     }
+
+    public UserDto sendRequestToAnotherService(String jwtToken) {
+        String microserviceUrl = "http://localhost:8081/api/auth/"+jwtToken;
+        try {
+            UserDto userDto = restTemplate.getForObject(microserviceUrl, UserDto.class);
+            return userDto;
+        } catch (HttpClientErrorException.NotFound e) {
+            // Handle the 404 error here
+            // You can log it or take other appropriate actions
+            // For example, return a default response or throw a custom exception
+        }
+        return null;
+    }
 }

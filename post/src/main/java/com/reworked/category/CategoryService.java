@@ -1,9 +1,8 @@
 package com.reworked.category;
 
-import com.sopromadze.blogapi.exception.UnauthorizedException;
-import com.sopromadze.blogapi.payload.ApiResponse;
-import com.sopromadze.blogapi.payload.PagedResponse;
-import com.sopromadze.blogapi.security.UserPrincipal;
+import com.reworked.exception.UnauthorizedException;
+import com.reworked.payload.ApiResponse;
+import com.reworked.payload.PagedResponse;
 import org.springframework.http.ResponseEntity;
 
 public interface CategoryService {
@@ -12,11 +11,11 @@ public interface CategoryService {
 
 	ResponseEntity<Category> getCategory(Long id);
 
-	ResponseEntity<Category> addCategory(Category category, UserPrincipal currentUser);
+	ResponseEntity<Category> addCategory(Category category, Long userId);
 
-	ResponseEntity<Category> updateCategory(Long id, Category newCategory, UserPrincipal currentUser)
-			throws UnauthorizedException;
-
-	ResponseEntity<ApiResponse> deleteCategory(Long id, UserPrincipal currentUser) throws UnauthorizedException;
+//	ResponseEntity<Category> updateCategory(Long id, Category newCategory, Long userId)
+//			throws UnauthorizedException;
+//
+//	ResponseEntity<ApiResponse> deleteCategory(Long id, Long userId) throws UnauthorizedException;
 
 }

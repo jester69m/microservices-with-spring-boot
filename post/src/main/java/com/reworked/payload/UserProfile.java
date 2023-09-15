@@ -1,7 +1,5 @@
 package com.reworked.payload;
 
-import com.sopromadze.blogapi.model.user.Address;
-import com.sopromadze.blogapi.model.user.Company;
 import lombok.AllArgsConstructor;
 import lombok.Data;
 import lombok.NoArgsConstructor;
@@ -18,9 +16,9 @@ public class UserProfile {
 	private String lastName;
 	private Instant joinedAt;
 	private String email;
-	private Address address;
+	private String address;
 	private String phone;
 	private String website;
-	private Company company;
+	private String company;
 	private Long postCount;
 }

@@ -30,8 +30,8 @@ public class TagController {
 
 	@PostMapping
 	@PreAuthorize("hasRole('USER')")
-	public ResponseEntity<Tag> addTag(@Valid @RequestBody Tag tag, @CurrentUser UserPrincipal currentUser) {
-		Tag newTag = tagService.addTag(tag, currentUser);
+	public ResponseEntity<Tag> addTag(@Valid @RequestBody Tag tag) {
+		Tag newTag = tagService.addTag(tag);
 
 		return new ResponseEntity< >(newTag, HttpStatus.CREATED);
 	}
@@ -43,21 +43,21 @@ public class TagController {
 		return new ResponseEntity< >(tag, HttpStatus.OK);
 	}
 
-	@PutMapping("/{id}")
-	@PreAuthorize("hasRole('USER') or hasRole('ADMIN')")
-	public ResponseEntity<Tag> updateTag(@PathVariable(name = "id") Long id, @Valid @RequestBody Tag tag, @CurrentUser UserPrincipal currentUser) {
-
-		Tag updatedTag = tagService.updateTag(id, tag, currentUser);
-
-		return new ResponseEntity< >(updatedTag, HttpStatus.OK);
-	}
-
-	@DeleteMapping("/{id}")
-	@PreAuthorize("hasRole('USER') or hasRole('ADMIN')")
-	public ResponseEntity<ApiResponse> deleteTag(@PathVariable(name = "id") Long id, @CurrentUser UserPrincipal currentUser) {
-		ApiResponse apiResponse = tagService.deleteTag(id, currentUser);
-
-		return new ResponseEntity< >(apiResponse, HttpStatus.OK);
-	}
+//	@PutMapping("/{id}")
+//	@PreAuthorize("hasRole('USER') or hasRole('ADMIN')")
+//	public ResponseEntity<Tag> updateTag(@PathVariable(name = "id") Long id, @Valid @RequestBody Tag tag, @CurrentUser UserPrincipal currentUser) {
+//
+//		Tag updatedTag = tagService.updateTag(id, tag, currentUser);
+//
+//		return new ResponseEntity< >(updatedTag, HttpStatus.OK);
+//	}
+//
+//	@DeleteMapping("/{id}")
+//	@PreAuthorize("hasRole('USER') or hasRole('ADMIN')")
+//	public ResponseEntity<ApiResponse> deleteTag(@PathVariable(name = "id") Long id, @CurrentUser UserPrincipal currentUser) {
+//		ApiResponse apiResponse = tagService.deleteTag(id, currentUser);
+//
+//		return new ResponseEntity< >(apiResponse, HttpStatus.OK);
+//	}
 
 }

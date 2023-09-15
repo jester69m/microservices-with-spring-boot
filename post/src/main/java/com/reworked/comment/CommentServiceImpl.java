@@ -5,20 +5,9 @@ import com.reworked.exception.ResourceNotFoundException;
 import com.reworked.payload.ApiResponse;
 import com.reworked.payload.CommentRequest;
 import com.reworked.payload.PagedResponse;
-import com.reworked.role.RoleName;
+import com.reworked.post.Post;
+import com.reworked.post.PostRepository;
 import com.reworked.utils.AppUtils;
-import com.sopromadze.blogapi.exception.BlogapiException;
-import com.sopromadze.blogapi.exception.ResourceNotFoundException;
-import com.sopromadze.blogapi.model.Post;
-import com.sopromadze.blogapi.model.role.RoleName;
-import com.sopromadze.blogapi.model.user.User;
-import com.sopromadze.blogapi.payload.ApiResponse;
-import com.sopromadze.blogapi.payload.CommentRequest;
-import com.sopromadze.blogapi.payload.PagedResponse;
-import com.sopromadze.blogapi.repository.PostRepository;
-import com.sopromadze.blogapi.repository.UserRepository;
-import com.sopromadze.blogapi.security.UserPrincipal;
-import com.sopromadze.blogapi.utils.AppUtils;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.data.domain.Page;
 import org.springframework.data.domain.PageRequest;
@@ -48,8 +37,8 @@ public class CommentServiceImpl implements CommentService {
 	@Autowired
 	private PostRepository postRepository;
 
-	@Autowired
-	private UserRepository userRepository;
+//	@Autowired
+//	private UserRepository userRepository;
 
 	@Override
 	public PagedResponse<Comment> getAllComments(Long postId, int page, int size) {
@@ -63,15 +52,14 @@ public class CommentServiceImpl implements CommentService {
 	}
 
 	@Override
-	public Comment addComment(CommentRequest commentRequest, Long postId, UserPrincipal currentUser) {
+	public Comment addComment(CommentRequest commentRequest, Long postId, Long currentUser) {
 		Post post = postRepository.findById(postId)
 				.orElseThrow(() -> new ResourceNotFoundException(POST_STR, ID_STR, postId));
-		User user = userRepository.getUser(currentUser);
 		Comment comment = new Comment(commentRequest.getBody());
-		comment.setUser(user);
+		comment.setUserId(currentUser);
 		comment.setPost(post);
-		comment.setName(currentUser.getUsername());
-		comment.setEmail(currentUser.getEmail());
+//		comment.setName(currentUser.getUsername());
+//		comment.setEmail(currentUser.getEmail());
 		return commentRepository.save(comment);
 	}
 
@@ -88,44 +76,44 @@ public class CommentServiceImpl implements CommentService {
 		throw new BlogapiException(HttpStatus.BAD_REQUEST, COMMENT_DOES_NOT_BELONG_TO_POST);
 	}
 
-	@Override
-	public Comment updateComment(Long postId, Long id, CommentRequest commentRequest,
-                                 UserPrincipal currentUser) {
-		Post post = postRepository.findById(postId)
-				.orElseThrow(() -> new ResourceNotFoundException(POST_STR, ID_STR, postId));
-		Comment comment = commentRepository.findById(id)
-				.orElseThrow(() -> new ResourceNotFoundException(COMMENT_STR, ID_STR, id));
-
-		if (!comment.getPost().getId().equals(post.getId())) {
-			throw new BlogapiException(HttpStatus.BAD_REQUEST, COMMENT_DOES_NOT_BELONG_TO_POST);
-		}
-
-		if (comment.getUser().getId().equals(currentUser.getId())
-				|| currentUser.getAuthorities().contains(new SimpleGrantedAuthority(RoleName.ROLE_ADMIN.toString()))) {
-			comment.setBody(commentRequest.getBody());
-			return commentRepository.save(comment);
-		}
-
-		throw new BlogapiException(HttpStatus.UNAUTHORIZED, YOU_DON_T_HAVE_PERMISSION_TO + "update" + THIS_COMMENT);
-	}
-
-	@Override
-	public ApiResponse deleteComment(Long postId, Long id, UserPrincipal currentUser) {
-		Post post = postRepository.findById(postId)
-				.orElseThrow(() -> new ResourceNotFoundException(POST_STR, ID_STR, postId));
-		Comment comment = commentRepository.findById(id)
-				.orElseThrow(() -> new ResourceNotFoundException(COMMENT_STR, ID_STR, id));
-
-		if (!comment.getPost().getId().equals(post.getId())) {
-			return new ApiResponse(Boolean.FALSE, COMMENT_DOES_NOT_BELONG_TO_POST);
-		}
-
-		if (comment.getUser().getId().equals(currentUser.getId())
-				|| currentUser.getAuthorities().contains(new SimpleGrantedAuthority(RoleName.ROLE_ADMIN.toString()))) {
-			commentRepository.deleteById(comment.getId());
-			return new ApiResponse(Boolean.TRUE, "You successfully deleted comment");
-		}
-
-		throw new BlogapiException(HttpStatus.UNAUTHORIZED, YOU_DON_T_HAVE_PERMISSION_TO + "delete" + THIS_COMMENT);
-	}
+//	@Override
+//	public Comment updateComment(Long postId, Long id, CommentRequest commentRequest,
+//                                 Long currentUser) {
+//		Post post = postRepository.findById(postId)
+//				.orElseThrow(() -> new ResourceNotFoundException(POST_STR, ID_STR, postId));
+//		Comment comment = commentRepository.findById(id)
+//				.orElseThrow(() -> new ResourceNotFoundException(COMMENT_STR, ID_STR, id));
+//
+//		if (!comment.getPost().getId().equals(post.getId())) {
+//			throw new BlogapiException(HttpStatus.BAD_REQUEST, COMMENT_DOES_NOT_BELONG_TO_POST);
+//		}
+//
+//		if (comment.getUser().getId().equals(currentUser.getId())
+//				|| currentUser.getAuthorities().contains(new SimpleGrantedAuthority(RoleName.ROLE_ADMIN.toString()))) {
+//			comment.setBody(commentRequest.getBody());
+//			return commentRepository.save(comment);
+//		}
+//
+//		throw new BlogapiException(HttpStatus.UNAUTHORIZED, YOU_DON_T_HAVE_PERMISSION_TO + "update" + THIS_COMMENT);
+//	}
+//
+//	@Override
+//	public ApiResponse deleteComment(Long postId, Long id, Long currentUser) {
+//		Post post = postRepository.findById(postId)
+//				.orElseThrow(() -> new ResourceNotFoundException(POST_STR, ID_STR, postId));
+//		Comment comment = commentRepository.findById(id)
+//				.orElseThrow(() -> new ResourceNotFoundException(COMMENT_STR, ID_STR, id));
+//
+//		if (!comment.getPost().getId().equals(post.getId())) {
+//			return new ApiResponse(Boolean.FALSE, COMMENT_DOES_NOT_BELONG_TO_POST);
+//		}
+//
+//		if (comment.getUser().getId().equals(currentUser.getId())
+//				|| currentUser.getAuthorities().contains(new SimpleGrantedAuthority(RoleName.ROLE_ADMIN.toString()))) {
+//			commentRepository.deleteById(comment.getId());
+//			return new ApiResponse(Boolean.TRUE, "You successfully deleted comment");
+//		}
+//
+//		throw new BlogapiException(HttpStatus.UNAUTHORIZED, YOU_DON_T_HAVE_PERMISSION_TO + "delete" + THIS_COMMENT);
+//	}
 }

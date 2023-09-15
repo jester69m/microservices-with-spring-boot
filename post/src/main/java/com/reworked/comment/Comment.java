@@ -44,9 +44,7 @@ public class Comment extends UserDateAudit {
     @JoinColumn(name = "post_id")
     private Post post;
 
-    @ManyToOne(fetch = FetchType.LAZY)
-    @JoinColumn(name = "user_id")
-    private User user;
+    private Long userId;
 
     public Comment(@NotBlank @Size(min = 10, message = "Comment body must be minimum 10 characters") String body) {
         this.body = body;
@@ -57,8 +55,7 @@ public class Comment extends UserDateAudit {
         return post;
     }
 
-    @JsonIgnore
-    public User getUser() {
-        return user;
+    public Long getUser() {
+        return userId;
     }
 }

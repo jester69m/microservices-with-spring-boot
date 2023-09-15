@@ -9,10 +9,10 @@ public interface TagService {
 
 	Tag getTag(Long id);
 
-	Tag addTag(Tag tag, UserPrincipal currentUser);
+	Tag addTag(Tag tag);
 
-	Tag updateTag(Long id, Tag newTag, UserPrincipal currentUser);
-
-	ApiResponse deleteTag(Long id, UserPrincipal currentUser);
+//	Tag updateTag(Long id, Tag newTag, Long currentUser);
+//
+//	ApiResponse deleteTag(Long id, Long currentUser);
 
 }

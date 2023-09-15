@@ -1,6 +1,6 @@
 package com.reworked;
 
-import jakarta.annotation.PostConstruct;
+import javax.annotation.PostConstruct;
 import org.modelmapper.ModelMapper;
 import org.springframework.boot.SpringApplication;
 import org.springframework.boot.autoconfigure.SpringBootApplication;
@@ -12,7 +12,6 @@ import java.util.TimeZone;
 
 @SpringBootApplication
 @EntityScan(basePackageClasses = { AlbumMicroService.class, Jsr310Converters.class })
-
 public class AlbumMicroService {
 
     public static void main(String[] args) {
