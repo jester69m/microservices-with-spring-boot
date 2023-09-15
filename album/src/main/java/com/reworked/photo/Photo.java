@@ -11,8 +11,6 @@ import javax.validation.constraints.NotBlank;
 @EqualsAndHashCode(callSuper = true)
 @Entity
 @Data
-@Setter
-@Getter
 @NoArgsConstructor
 @Table(name = "photos", uniqueConstraints = { @UniqueConstraint(columnNames = { "title" }) })
 public class Photo extends UserDateAudit {
